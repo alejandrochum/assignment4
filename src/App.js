@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import LogIn from './components/Login';
+import Debits from './components/Debits';
 
 class App extends Component {
 
@@ -59,13 +60,14 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-
+    const DebitsComponent = () => (<Debits />)
     return (
       <Router>
         <div>
           <Route exact path="/" render={HomeComponent} />
           <Route exact path="/userProfile" render={UserProfileComponent} />
           <Route exact path="/login" render={LogInComponent} />
+          <Route exact path="/debits" render={DebitsComponent} />
         </div>
       </Router>
     );
