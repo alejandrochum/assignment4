@@ -1,6 +1,6 @@
 
-import React, {Component} from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import LogIn from './components/Login';
@@ -21,33 +21,53 @@ class App extends Component {
     }
 
   }
-  
-  componentDidCatch = () => {
 
+  //fetch debit data from API
+  getDebit = () => {
+    fetch("https://moj-api.herokuapp.com/debits")
+      .then(response => response.json())
+      .then(data => {
+        this.setState({debits: data}) //sets debits state variable to the fetched data
+      })
+  }
+
+  //fetch credit data from API
+  getCredit = () => {
+    fetch("https://moj-api.herokuapp.com/credits")
+      .then(response => response.json())
+      .then(data => {
+        this.setState({credits: data}) //sets credits state variable to the fetched data
+      })
+  }
+
+  //call for the functions to get the data when component mounts
+  componentDidMount = () => {
+    this.getDebit();
+    this.getCredit();
   }
 
   mockLogIn = (logInInfo) => {
-    const newUser = {...this.state.currentUser}
+    const newUser = { ...this.state.currentUser }
     newUser.userName = logInInfo.userName
-    this.setState({currentUser: newUser})
+    this.setState({ currentUser: newUser })
   }
 
   render() {
 
-    const HomeComponent = () => (<Home accountBalance={this.state.accountBalance}/>);
+    const HomeComponent = () => (<Home accountBalance={this.state.accountBalance} />);
     const UserProfileComponent = () => (
-        <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
+      <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
 
     return (
-        <Router>
-          <div>
-            <Route exact path="/" render={HomeComponent}/>
-            <Route exact path="/userProfile" render={UserProfileComponent}/>
-            <Route exact path="/login" render={LogInComponent}/>
-          </div>
-        </Router>
+      <Router>
+        <div>
+          <Route exact path="/" render={HomeComponent} />
+          <Route exact path="/userProfile" render={UserProfileComponent} />
+          <Route exact path="/login" render={LogInComponent} />
+        </div>
+      </Router>
     );
   }
 
