@@ -9,10 +9,6 @@ class Home extends Component {
         <img src="https://picsum.photos/201" alt="bank" />
         <h1>Bank of React</h1>
 
-        <div><Link to="/userProfile">User Profile</Link></div>
-        <div><Link to="/debits"> Debits </Link></div>
-        <div><Link to="/credits"> Credits </Link></div>
-
         <AccountBalance accountBalance={this.props.accountBalance} />
       </div>
     );

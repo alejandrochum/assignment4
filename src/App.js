@@ -60,7 +60,7 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const DebitsComponent = () => (<Debits />)
+    const DebitsComponent = () => (<Debits debits={this.state.debits} accountBalance={this.state.accountBalance}/>)
     return (
       <Router>
         <div>
