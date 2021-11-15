@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import AccountBalance from './AccountBalance';
 
 class Debits extends Component {
 
     debitList = () => {
         const data = this.props.debits;
-        const listItems = data.map((d) => <li key={d}>{d.amount + " " + d.description + " " + d.date}</li>);
+        const listItems = data.map((d) => <li key={d.id}>{d.amount} {d.description} {d.date.slice(0, 10)}</li>);
         return listItems;
     }
 
@@ -14,7 +13,8 @@ class Debits extends Component {
             <div>
                 <h1>Debits</h1>
                 {this.debitList()}
-                <AccountBalance accountBalance={this.props.accountBalance} />
+                <this.props.balanceComponent />
+                <this.props.dbInputComponent />
             </div>
         )
     }
