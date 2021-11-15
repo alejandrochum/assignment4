@@ -1,48 +1,33 @@
 import React, { Component } from 'react'
 
 class DbInput extends Component {
-    constructor() {
-        super()
-        this.state = {
-            newData: {
-                id: '',
-                description: '',
-                amount: 0,
-                date: '2018-04-26T09:26:58.413Z'
-            }
-        }
-    }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const amount =  e.target.amount.value;
-        console.log(amount);
-        const desc = e.target.description.value;
-        let date = new Date().toISOString()
-
+        const amount =  e.target.amount.value; //gets the value from amount input field
+        const desc = e.target.description.value; //gets the value from description input field
+        let date = new Date().toISOString(); //gets the current date
         let newData= {
             id: '',
             description: desc,
-            amount: parseFloat(amount),
+            amount: Number(amount),
             date: date
         }
-
-        this.props.addDebit(newData);
+        this.props.add(newData); //calls the function in app.js passing the values for new data input
     }
 
     render() {
         return (
-            <div>
+            <div className="data-form">
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label htmlFor="description">Description</label>
-                        <input type="text" name="description" />
-                    </div>
-                    <div>
+                        <input type="text" name="description" required style={{marginRight:"30px", marginLeft:"10px"}}/>
+
                         <label htmlFor="amount">Amount</label>
-                        <input type="number" name="amount" />
+                        <input type="decimal" name="amount" required style={{marginLeft:"10px"}} />
                     </div>
-                    <button>Add</button>
+                    <button>Add {this.props.option}</button>
                 </form>
             </div>
         )

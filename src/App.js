@@ -5,6 +5,7 @@ import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import LogIn from './components/Login';
 import Debits from './components/Debits';
+import Credits from './components/Credits';
 import AccountBalance from './components/AccountBalance';
 import DbInput from './components/DbInput';
 
@@ -75,6 +76,13 @@ class App extends Component {
       })
   }
 
+  addCredit = (credit) => {
+    const newDebits = this.state.credits;
+    newDebits.push(credit);
+    this.setState({ credits: newDebits })
+    this.updateBalance();
+  }
+
   //call for the functions to get the data when component mounts
   componentDidMount = () => {
     this.getDebit();
@@ -89,14 +97,18 @@ class App extends Component {
 
   render() {
 
-    const DbInputComponent = () => (<DbInput addDebit={this.addDebit}/>)
+    const DebitInputComponent = () => (<DbInput add={this.addDebit} option={'Debit'}/>)
+    const CreditInputComponent = () => (<DbInput add={this.addCredit} option={'Credit'}/>)
+
     const BalanceComponent = () => (<AccountBalance accountBalance={this.state.accountBalance} />)
     const HomeComponent = () => (<Home accountBalance={this.state.accountBalance} />);
     const UserProfileComponent = () => (
-      <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
+      <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} balanceComponent={BalanceComponent} />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);
-    const DebitsComponent = () => (<Debits dbInputComponent={DbInputComponent} debits={this.state.debits} balanceComponent={BalanceComponent}/>);
+
+    const DebitsComponent = () => (<Debits dbInputComponent={DebitInputComponent} debits={this.state.debits} balanceComponent={BalanceComponent}/>);
+    const CreditsComponent = () => (<Credits dbInputComponent={CreditInputComponent} credits={this.state.credits} balanceComponent={BalanceComponent} />);
   
     return (
       <Router>
@@ -105,6 +117,7 @@ class App extends Component {
           <Route exact path="/userProfile" render={UserProfileComponent} />
           <Route exact path="/login" render={LogInComponent} />
           <Route exact path="/debits" render={DebitsComponent} />
+          <Route exact path="/credits" render={CreditsComponent} />
         </div>
       </Router>
     );
