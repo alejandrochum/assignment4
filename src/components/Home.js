@@ -4,7 +4,7 @@ import AccountBalance from './AccountBalance';
 class Home extends Component {
   render() {
     return (
-      <div>
+      <div style={{textAlign: "center"}}>
         <img src="https://picsum.photos/201" alt="bank" />
         <h1>Bank of React</h1>
 

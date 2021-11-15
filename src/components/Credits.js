@@ -10,7 +10,7 @@ class Credits extends Component {
     render() {
         return(
             <div>
-                <h1>Debits</h1>
+                <h1>Credits</h1>
                 {this.creditList()}
                 <this.props.balanceComponent />
                 <this.props.dbInputComponent />
@@ -18,3 +18,5 @@ class Credits extends Component {
         )
     }
 }
+
+export default Credits;
