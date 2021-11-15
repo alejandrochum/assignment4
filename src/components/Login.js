@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 
 class LogIn extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       user: {
@@ -14,39 +14,45 @@ class LogIn extends Component {
   }
 
   handleChange = (e) => {
-    const updatedUser = {...this.state.user}
+    const updatedUser = { ...this.state.user }
     const inputField = e.target.name
     const inputValue = e.target.value
     updatedUser[inputField] = inputValue
 
-    this.setState({user: updatedUser})
+    this.setState({ user: updatedUser })
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.mockLogIn(this.state.user)
-    this.setState({redirect: true})
+    this.setState({ redirect: true })
   }
 
-  render () {
+  render() {
     if (this.state.redirect) {
-      return (<Redirect to="/userProfile"/>)
+      return (<Redirect to="/userProfile" />)
     }
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label htmlFor="userName">User Name</label>
-            <input type="text" name="userName" onChange={this.handleChange} />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" />
-          </div>
-          <button>Log In</button>
-        </form>
+      <div style ={{textAlign:"center"}}>
+        <img src="https://picsum.photos/201" alt="bank" />
+        <h1>Bank of React</h1>
+        <div className="data-form">
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <label htmlFor="userName">User Name</label>
+              <input type="text" name="userName" required style={{ marginLeft: "20px" }} onChange={this.handleChange} />
+            </div>
+            <div>
+              <label htmlFor="password">Password</label>
+              <input type="password" name="password" style={{ marginLeft: "30px" }} />
+            </div>
+            <button>Log In</button>
+            <Link to="/"><button>Cancel</button></Link>
+          </form>
+        </div>
       </div>
+
     )
   }
 }
